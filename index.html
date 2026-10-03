@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warehouse Swiss Knife</title>
+  <meta name="theme-color" content="#102a43">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-page">
+  <header class="app-header">
+    <a class="brand" href="index.html" aria-label="Warehouse Swiss Knife home">
+      <span class="brand-mark" aria-hidden="true">W<span>+</span></span>
+      <span class="brand-copy">
+        <strong>Warehouse Swiss Knife</strong>
+        <small>WAREHOUSE OPERATIONS TOOLKIT</small>
+      </span>
+    </a>
+    <div class="header-actions">
+      <span class="status-pill"><span class="status-dot"></span> Prototype</span>
+      <div class="lang-switcher" aria-label="Language">
+        <button class="lang-btn active" type="button" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" type="button" onclick="setLanguage('nl')">NL</button>
+        <button class="lang-btn" type="button" onclick="setLanguage('hr')">HR</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="home-container">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> PRACTICAL TOOLS. BETTER PROCESSES.</div>
+        <h1>Make warehouse work<br><span>clearer and smarter.</span></h1>
+        <p>A practical toolkit for daily operations, inventory control and continuous improvement — built around the way warehouses actually work.</p>
+        <div class="hero-meta">
+          <span><span class="meta-check">✓</span> Simple workflows</span>
+          <span><span class="meta-check">✓</span> Excel-friendly</span>
+          <span><span class="meta-check">✓</span> Built for the floor</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="visual-grid"></div>
+        <div class="warehouse-illustration">
+          <div class="rack rack-a"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="rack rack-b"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="rack rack-c"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="floor-line"></div>
+          <div class="visual-tag tag-one"><span class="tag-icon">↗</span><span><b>Process</b><small>Improvement</small></span></div>
+          <div class="visual-tag tag-two"><span class="tag-icon">▦</span><span><b>Inventory</b><small>Visibility</small></span></div>
+        </div>
+        <div class="hero-index">WSK <span>·</span> 01</div>
+      </div>
+    </section>
+
+    <section class="section-heading">
+      <div>
+        <div class="eyebrow">WORKSPACE</div>
+        <h2>Explore your workspace</h2>
+        <p>Choose a work area to find the tools and workflows you need.</p>
+      </div>
+      <div class="tool-count"><strong>08</strong><span>TOOLS<br>AVAILABLE</span></div>
+    </section>
+
+    <section class="category-grid" aria-label="Tool categories">
+      <article class="category-card category-operations">
+        <div class="category-top">
+          <span class="category-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 20V9l9-6 9 6v11h-6v-6H9v6H3zm2-2h2v-6h8v6h2v-8.9l-5-3.3-7 4.7V18z"/></svg>
+          </span>
+          <span class="category-number">01 / OPERATIONS</span>
+        </div>
+        <h3>Operations</h3>
+        <p class="category-description">Support everyday warehouse tasks from receiving to dispatch.</p>
+        <div class="tool-list">
+          <a class="tool-link" href="picking.html"><span class="tool-symbol">⇄</span><span><b>Picking</b><small>Consolidate and sort picking lines</small></span><span class="tool-arrow">↗</span></a>
+          <a class="tool-link" href="form.html"><span class="tool-symbol">☷</span><span><b>WMS Operational Form</b><small>Checklist, time tracking and PDF export</small></span><span class="tool-arrow">↗</span></a>
+          <div class="tool-link tool-planned"><span class="tool-symbol">＋</span><span><b>Inbound / Production / Outbound</b><small>Process modules planned</small></span><span class="planned-label">PLANNED</span></div>
+        </div>
+        <div class="category-footer"><span>DAILY WORKFLOWS</span><span class="footer-arrow">→</span></div>
+      </article>
+
+      <article class="category-card category-inventory">
+        <div class="category-top">
+          <span class="category-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9zm9-2.3L7 7.7l5 2.5 5-2.5-5-2.5zM5 9.3v6l6 3v-6L5 9.3zm8 9 6-3v-6l-6 3v6z"/></svg>
+          </span>
+          <span class="category-number">02 / INVENTORY</span>
+        </div>
+        <h3>Inventory</h3>
+        <p class="category-description">Improve stock visibility, product data and location structure.</p>
+        <div class="tool-list">
+          <a class="tool-link" href="abc.html"><span class="tool-symbol">▥</span><span><b>ABC Analysis</b><small>Classify products and explore patterns</small></span><span class="tool-arrow">↗</span></a>
+          <a class="tool-link" href="inventory.html"><span class="tool-symbol">▤</span><span><b>Inventory Search</b><small>Find stock and identify empty locations</small></span><span class="tool-arrow">↗</span></a>
+          <a class="tool-link" href="locations.html"><span class="tool-symbol">⌖</span><span><b>Location Generator</b><small>Generate location codes and export</small></span><span class="tool-arrow">↗</span></a>
+          <div class="tool-link tool-planned"><span class="tool-symbol">＋</span><span><b>Cycle Counting / Master Data</b><small>Inventory modules planned</small></span><span class="planned-label">PLANNED</span></div>
+        </div>
+        <div class="category-footer"><span>STOCK & STRUCTURE</span><span class="footer-arrow">→</span></div>
+      </article>
+
+      <article class="category-card category-tools">
+        <div class="category-top">
+          <span class="category-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4L14 13l-3-3 3.7-3.7z"/></svg>
+          </span>
+          <span class="category-number">03 / TOOLS</span>
+        </div>
+        <h3>Tools</h3>
+        <p class="category-description">Small utilities that make warehouse work easier to measure and manage.</p>
+        <div class="tool-list">
+          <a class="tool-link" href="qr.html"><span class="tool-symbol">▦</span><span><b>QR & Barcode Generator</b><small>Create codes for operational use</small></span><span class="tool-arrow">↗</span></a>
+          <a class="tool-link" href="mod.html"><span class="tool-symbol">÷</span><span><b>MOD Calculator</b><small>Calculate full packs and remainders</small></span><span class="tool-arrow">↗</span></a>
+          <a class="tool-link" href="stopwatch.html"><span class="tool-symbol">◷</span><span><b>Stopwatch</b><small>Measure task times and export results</small></span><span class="tool-arrow">↗</span></a>
+        </div>
+        <div class="category-footer"><span>QUICK UTILITIES</span><span class="footer-arrow">→</span></div>
+      </article>
+
+      <article class="category-card category-admin">
+        <div class="category-top">
+          <span class="category-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm0 2v3h14V5H5zm2 6v2h3v-2H7zm5 0v2h5v-2h-5zm-5 4v2h3v-2H7zm5 0v2h5v-2h-5z"/></svg>
+          </span>
+          <span class="category-number">04 / ADMINISTRATION</span>
+        </div>
+        <h3>Administration</h3>
+        <p class="category-description">Keep recurring checks and supporting work organized.</p>
+        <div class="tool-list">
+          <div class="tool-link tool-planned"><span class="tool-symbol">▦</span><span><b>Holidays</b><small>Availability and holiday planning</small></span><span class="planned-label">PLANNED</span></div>
+          <div class="tool-link tool-planned"><span class="tool-symbol">☑</span><span><b>Order Checklist</b><small>Standardize order-related checks</small></span><span class="planned-label">PLANNED</span></div>
+        </div>
+        <div class="category-footer"><span>ORGANIZATION</span><span class="footer-arrow">→</span></div>
+      </article>
+    </section>
+
+    <section class="bottom-note">
+      <div class="note-mark">i</div>
+      <div><strong>A toolkit that grows with the process.</strong><p>WSK is a working prototype. Planned modules are shown for direction and are not clickable yet.</p></div>
+      <span class="bottom-note-code">WSK / WORKSPACE</span>
+    </section>
+    <footer class="page-footer"><span>WAREHOUSE SWISS KNIFE</span><span>Practical thinking · Operational improvement</span><span>PROTOTYPE</span></footer>
+  </main>
+
+  <script>
+    // Navigation helper retained for compatibility with the existing app.
+    function goTo(page) { window.location.href = page; }
+
+    // Keep the language buttons visible; translation dictionaries for the original
+    // home page are intentionally not duplicated in this visual redesign.
+    function setLanguage(lang) {
+      document.querySelectorAll('.lang-btn').forEach(function (button) {
+        button.classList.toggle('active', button.textContent.trim().toLowerCase() === lang);
+      });
+      if (lang !== 'en') {
+        const notice = document.getElementById('language-notice');
+        if (notice) notice.remove();
+        const message = document.createElement('div');
+        message.id = 'language-notice';
+        message.className = 'language-notice';
+        message.textContent = 'The redesigned home page preview is currently in English. Language switching can be reconnected to the existing translations later.';
+        document.body.appendChild(message);
+        window.setTimeout(function () { if (message.isConnected) message.remove(); }, 4500);
+      }
+    }
+  </script>
+</body>
+</html>

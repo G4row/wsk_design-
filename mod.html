@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#020602">
+<title>MOD Calculator · Warehouse Swiss Knife</title>
+<link rel="stylesheet" href="style.css">
+<script src="xlsx.full.min.js"></script>
+<script>
+window.PAGE_I18N = {
+  en: {
+    doc_title: 'MOD Calculator', page_title: 'MOD Calculator', page_sub: 'Calculate full boxes and remainders.',
+    excel_title: 'Import from Excel', excel_desc: 'Columns: A = product, B = quantity, C = box size. Reading starts at row 2.',
+    manual_title: 'Manual entry', lbl_prod_name: 'Product name', ph_prod_name: 'e.g. AA',
+    lbl_total_qty: 'Total quantity', ph_total_qty: 'e.g. 10', lbl_box_qty: 'Box size', ph_box_qty: 'e.g. 3',
+    btn_add: 'Add item', btn_show: 'Show results', prepared_entries: 'Prepared items',
+    col_prod: 'Product', col_total: 'Total quantity', col_box: 'Box size', col_action: 'Action',
+    modal_results: 'MOD results', col_full: 'Full boxes', col_rem: 'Remainder',
+    btn_close: 'Close', btn_clear: 'Clear all data',
+    msg_invalid: 'Enter a product name, a quantity and a box size of at least 1.',
+    msg_no_items: 'Add at least one item first.'
+  },
+  nl: {
+    doc_title: 'MOD Calculator', page_title: 'MOD Calculator', page_sub: 'Bereken volle dozen en restanten.',
+    excel_title: 'Importeren uit Excel', excel_desc: 'Kolommen: A = product, B = aantal, C = doosgrootte. Inlezen begint bij rij 2.',
+    manual_title: 'Handmatige invoer', lbl_prod_name: 'Productnaam', ph_prod_name: 'bijv. AA',
+    lbl_total_qty: 'Totaal aantal', ph_total_qty: 'bijv. 10', lbl_box_qty: 'Doosgrootte', ph_box_qty: 'bijv. 3',
+    btn_add: 'Toevoegen', btn_show: 'Toon resultaten', prepared_entries: 'Voorbereide items',
+    col_prod: 'Product', col_total: 'Totaal aantal', col_box: 'Doosgrootte', col_action: 'Actie',
+    modal_results: 'MOD-resultaten', col_full: 'Volle dozen', col_rem: 'Restant',
+    btn_close: 'Sluiten', btn_clear: 'Alle gegevens wissen',
+    msg_invalid: 'Vul een productnaam, een aantal en een doosgrootte van minimaal 1 in.',
+    msg_no_items: 'Voeg eerst minstens één item toe.'
+  },
+  hr: {
+    doc_title: 'MOD kalkulator', page_title: 'MOD kalkulator', page_sub: 'Izračun punih kutija i ostataka.',
+    excel_title: 'Uvoz iz Excela', excel_desc: 'Stupci: A = proizvod, B = količina, C = količina po kutiji. Čitanje počinje od 2. reda.',
+    manual_title: 'Ručni unos', lbl_prod_name: 'Naziv proizvoda', ph_prod_name: 'npr. AA',
+    lbl_total_qty: 'Ukupna količina', ph_total_qty: 'npr. 10', lbl_box_qty: 'Količina po kutiji', ph_box_qty: 'npr. 3',
+    btn_add: 'Dodaj stavku', btn_show: 'Prikaži rezultate', prepared_entries: 'Pripremljene stavke',
+    col_prod: 'Proizvod', col_total: 'Ukupna količina', col_box: 'Količina po kutiji', col_action: 'Akcija',
+    modal_results: 'MOD rezultati', col_full: 'Pune kutije', col_rem: 'Ostatak',
+    btn_close: 'Zatvori', btn_clear: 'Očisti sve podatke',
+    msg_invalid: 'Unesite naziv proizvoda, količinu i količinu po kutiji (najmanje 1).',
+    msg_no_items: 'Najprije dodajte barem jednu stavku.'
+  }
+};
+</script>
+<script src="i18n.js"></script>
+</head>
+<body data-page="mod">
+<header class="app-header">
+  <div class="app-header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">W+</span><span class="brand-text"><strong>Warehouse Swiss Knife</strong><span data-i18n="brand_sub">Warehouse operations toolkit</span></span></a>
+    <div class="lang-switcher" data-lang-switcher></div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="kicker">&gt; wsk://tools/mod</div>
+  <h1 data-i18n="page_title">MOD Calculator</h1>
+  <p data-i18n="page_sub">Calculate full boxes and remainders.</p>
+</section>
+
+<main class="container">
+  <section class="card">
+    <h2 data-i18n="excel_title">Import from Excel</h2>
+    <div class="card-body">
+      <p class="hint" data-i18n="excel_desc"></p>
+      <input type="file" id="excelFile" accept=".xlsx,.xls,.csv">
+      <div class="status" id="excelStatus" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="manual_title">Manual entry</h2>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="prodName" data-i18n="lbl_prod_name">Product name</label>
+        <input type="text" id="prodName" data-i18n-placeholder="ph_prod_name">
+      </div>
+      <div class="flex-row">
+        <div class="form-group flex-1">
+          <label for="prodQty" data-i18n="lbl_total_qty">Total quantity</label>
+          <input type="number" id="prodQty" min="0" inputmode="numeric" data-i18n-placeholder="ph_total_qty">
+        </div>
+        <div class="form-group flex-1">
+          <label for="boxQty" data-i18n="lbl_box_qty">Box size</label>
+          <input type="number" id="boxQty" min="1" inputmode="numeric" data-i18n-placeholder="ph_box_qty">
+        </div>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" onclick="addManualEntry()" data-i18n="btn_add">Add item</button>
+        <button type="button" class="btn btn-primary" onclick="processAndShowResults()" data-i18n="btn_show">Show results</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span data-i18n="prepared_entries">Prepared items</span> <span>(<span id="entryCount">0</span>)</span></h2>
+    <div class="table-wrap">
+      <table id="bufferTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th data-i18n="col_prod">Product</th>
+            <th data-i18n="col_total">Total quantity</th>
+            <th data-i18n="col_box">Box size</th>
+            <th data-i18n="col_action">Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<div id="resultModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-content">
+    <h2 id="modalTitle" data-i18n="modal_results">MOD results</h2>
+    <div class="table-wrap">
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th data-i18n="col_prod">Product</th>
+            <th data-i18n="col_total">Total quantity</th>
+            <th data-i18n="col_full">Full boxes</th>
+            <th data-i18n="col_rem">Remainder</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="modal-body">
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" onclick="closeModal()" data-i18n="btn_close">Close</button>
+        <button type="button" class="btn btn-danger" onclick="clearAllData()" data-i18n="btn_clear">Clear all data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav-bar" data-nav></nav>
+
+<script>
+  let modData = [];
+  const $ = (id) => document.getElementById(id);
+
+  $('excelFile').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    WSK.readWorkbook(file, (wb) => {
+      const rows = WSK.sheetRows(wb, 0);
+      let added = 0;
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        if (r && r.length >= 3) {
+          const name = String(r[0] ?? '').trim();
+          const qty = parseInt(r[1], 10) || 0;
+          const boxQty = parseInt(r[2], 10) || 1;
+          if (name) { modData.push({ name, qty, boxQty: Math.max(1, boxQty) }); added++; }
+        }
+      }
+      WSK.setText($('excelStatus'), 'excel_loaded', { n: added });
+      updateBufferTable();
+    }, $('excelStatus'));
+  });
+
+  function addManualEntry() {
+    const name = $('prodName').value.trim();
+    const qty = parseInt($('prodQty').value, 10);
+    const boxQty = parseInt($('boxQty').value, 10);
+    if (!name || isNaN(qty) || isNaN(boxQty) || boxQty <= 0) { alert(WSK.t('msg_invalid')); return; }
+    modData.push({ name, qty, boxQty });
+    $('prodName').value = ''; $('prodQty').value = ''; $('boxQty').value = '';
+    $('prodName').focus();
+    updateBufferTable();
+  }
+
+  function removeEntry(index) { modData.splice(index, 1); updateBufferTable(); }
+
+  function updateBufferTable() {
+    const tbody = document.querySelector('#bufferTable tbody');
+    $('entryCount').textContent = modData.length;
+    if (!modData.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="empty-cell">${WSK.esc(WSK.t('no_rows'))}</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = modData.map((item, i) => `
+      <tr>
+        <td class="num">${i + 1}</td>
+        <td><strong>${WSK.esc(item.name)}</strong></td>
+        <td class="num">${item.qty}</td>
+        <td class="num">${item.boxQty}</td>
+        <td><button type="button" class="btn btn-danger btn-sm" onclick="removeEntry(${i})" aria-label="${WSK.esc(WSK.t('remove'))}: ${WSK.esc(item.name)}">×</button></td>
+      </tr>`).join('');
+  }
+
+  function renderResults() {
+    const tbody = document.querySelector('#resultsTable tbody');
+    tbody.innerHTML = modData.map(item => {
+      const full = Math.floor(item.qty / item.boxQty);
+      const rem = item.qty % item.boxQty;
+      return `<tr>
+        <td><strong>${WSK.esc(item.name)}</strong></td>
+        <td class="num">${item.qty}</td>
+        <td class="num val-good">${full}</td>
+        <td class="num ${rem ? 'val-bad' : ''}">${rem}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function processAndShowResults() {
+    if (!modData.length) { alert(WSK.t('msg_no_items')); return; }
+    renderResults();
+    $('resultModal').classList.add('open');
+  }
+  function closeModal() { $('resultModal').classList.remove('open'); }
+  function clearAllData() { modData = []; updateBufferTable(); closeModal(); WSK.resetFile($('excelFile')); WSK.setText($('excelStatus'), null); }
+
+  $('resultModal').addEventListener('click', (e) => { if (e.target.id === 'resultModal') closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+  document.addEventListener('wsk:langchange', updateBufferTable);
+  updateBufferTable();
+</script>
+</body>
+</html>

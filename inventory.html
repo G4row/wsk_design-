@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#020602">
+<title>Inventory Search · Warehouse Swiss Knife</title>
+<link rel="stylesheet" href="style.css">
+<script src="xlsx.full.min.js"></script>
+<script>
+window.PAGE_I18N = {
+  en: {
+    doc_title: 'Inventory Search', page_title: 'Inventory search', page_sub: 'Find stock and identify empty locations.',
+    excel_title: 'Import inventory from Excel', excel_inv_desc: 'Columns: A = location, B = product, C = pallet ID, D = quantity. Reading starts at row 2. A row with only a location counts as an empty location.',
+    filter_title: 'Search & filter', lbl_search: 'Quick search', ph_search: 'Product, pallet ID or location…',
+    lbl_1st_letter: '1st letter (A–Z)', opt_all_letters: 'All letters',
+    lbl_level: 'Level (4th character, 0–9)', opt_all_levels: 'All levels',
+    chk_empty_only: 'Show empty locations only',
+    results: 'Inventory results', col_loc: 'Location', col_prod: 'Product', col_pallet: 'Pallet ID', col_qty: 'Qty',
+    empty_loc: 'empty', no_match: 'Nothing matches this search.', load_first: 'Load an Excel file to start.'
+  },
+  nl: {
+    doc_title: 'Voorraad zoeken', page_title: 'Voorraad zoeken', page_sub: 'Vind voorraad en lege locaties.',
+    excel_title: 'Voorraad importeren uit Excel', excel_inv_desc: 'Kolommen: A = locatie, B = product, C = pallet-ID, D = aantal. Inlezen begint bij rij 2. Een regel met alleen een locatie telt als lege locatie.',
+    filter_title: 'Zoeken & filteren', lbl_search: 'Snel zoeken', ph_search: 'Product, pallet-ID of locatie…',
+    lbl_1st_letter: '1e letter (A–Z)', opt_all_letters: 'Alle letters',
+    lbl_level: 'Niveau (4e teken, 0–9)', opt_all_levels: 'Alle niveaus',
+    chk_empty_only: 'Alleen lege locaties tonen',
+    results: 'Voorraadresultaten', col_loc: 'Locatie', col_prod: 'Product', col_pallet: 'Pallet-ID', col_qty: 'Aantal',
+    empty_loc: 'leeg', no_match: 'Niets gevonden voor deze zoekopdracht.', load_first: 'Laad een Excel-bestand om te beginnen.'
+  },
+  hr: {
+    doc_title: 'Pretraga inventara', page_title: 'Pretraga inventara', page_sub: 'Pronađite zalihe i prazne lokacije.',
+    excel_title: 'Uvoz inventara iz Excela', excel_inv_desc: 'Stupci: A = lokacija, B = proizvod, C = ID palete, D = količina. Čitanje počinje od 2. reda. Red sa samo lokacijom računa se kao prazna lokacija.',
+    filter_title: 'Pretraga i filtri', lbl_search: 'Brza pretraga', ph_search: 'Proizvod, ID palete ili lokacija…',
+    lbl_1st_letter: '1. slovo (A–Z)', opt_all_letters: 'Sva slova',
+    lbl_level: 'Razina (4. znak, 0–9)', opt_all_levels: 'Sve razine',
+    chk_empty_only: 'Prikaži samo prazne lokacije',
+    results: 'Rezultati inventara', col_loc: 'Lokacija', col_prod: 'Proizvod', col_pallet: 'ID palete', col_qty: 'Količina',
+    empty_loc: 'prazno', no_match: 'Nema rezultata za ovu pretragu.', load_first: 'Učitajte Excel datoteku za početak.'
+  }
+};
+</script>
+<script src="i18n.js"></script>
+</head>
+<body data-page="inventory">
+<header class="app-header">
+  <div class="app-header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">W+</span><span class="brand-text"><strong>Warehouse Swiss Knife</strong><span data-i18n="brand_sub">Warehouse operations toolkit</span></span></a>
+    <div class="lang-switcher" data-lang-switcher></div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="kicker">&gt; wsk://inventory/search</div>
+  <h1 data-i18n="page_title">Inventory search</h1>
+  <p data-i18n="page_sub"></p>
+</section>
+
+<main class="container">
+  <section class="card">
+    <h2 data-i18n="excel_title">Import inventory from Excel</h2>
+    <div class="card-body">
+      <p class="hint" data-i18n="excel_inv_desc"></p>
+      <input type="file" id="excelFile" accept=".xlsx,.xls,.csv">
+      <div class="status" id="excelStatus" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="card" id="searchCard" hidden>
+    <h2 data-i18n="filter_title">Search &amp; filter</h2>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="searchInput" data-i18n="lbl_search">Quick search</label>
+        <input type="text" id="searchInput" data-i18n-placeholder="ph_search" oninput="filterAndRender()" autocomplete="off">
+      </div>
+      <div class="flex-row">
+        <div class="form-group flex-1">
+          <label for="filterLetter" data-i18n="lbl_1st_letter">1st letter</label>
+          <select id="filterLetter" onchange="filterAndRender()">
+            <option value="" data-i18n="opt_all_letters">All letters</option>
+          </select>
+        </div>
+        <div class="form-group flex-1">
+          <label for="filterLevel" data-i18n="lbl_level">Level</label>
+          <select id="filterLevel" onchange="filterAndRender()">
+            <option value="" data-i18n="opt_all_levels">All levels</option>
+          </select>
+        </div>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="emptyOnly" onchange="filterAndRender()">
+        <label for="emptyOnly" data-i18n="chk_empty_only">Show empty locations only</label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="listCard" hidden>
+    <h2><span data-i18n="results">Inventory results</span> <span>(<span id="matchCount">0</span>)</span></h2>
+    <div class="table-wrap">
+      <table id="inventoryTable">
+        <thead>
+          <tr>
+            <th data-i18n="col_loc">Location</th>
+            <th data-i18n="col_prod">Product</th>
+            <th data-i18n="col_pallet">Pallet ID</th>
+            <th data-i18n="col_qty">Qty</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<nav class="nav-bar" data-nav></nav>
+
+<script>
+  let inventoryData = [];
+  const $ = (id) => document.getElementById(id);
+
+  function addOptions(select, values) {
+    values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; select.appendChild(o); });
+  }
+  addOptions($('filterLetter'), Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i)));
+  addOptions($('filterLevel'), Array.from({ length: 10 }, (_, i) => String(i)));
+
+  $('excelFile').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    WSK.readWorkbook(file, (wb) => {
+      const rows = WSK.sheetRows(wb, 0);
+      inventoryData = [];
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        if (!r || !r.length) continue;
+        const location = String(r[0] ?? '').trim();
+        if (!location) continue;
+        const product = String(r[1] ?? '').trim();
+        const palletId = String(r[2] ?? '').trim();
+        const hasQty = r[3] !== undefined && r[3] !== null && String(r[3]).trim() !== '';
+        const qty = hasQty ? parseFloat(r[3]) : null;
+        inventoryData.push({ location, product, palletId, qty, isEmpty: !product && !palletId && !hasQty });
+      }
+      WSK.setText($('excelStatus'), 'excel_loaded', { n: inventoryData.length });
+      $('searchCard').hidden = false;
+      $('listCard').hidden = false;
+      filterAndRender();
+    }, $('excelStatus'));
+  });
+
+  function filterAndRender() {
+    const query = $('searchInput').value.toLowerCase().trim();
+    const letter = $('filterLetter').value;
+    const level = $('filterLevel').value;
+    const emptyOnly = $('emptyOnly').checked;
+
+    const filtered = inventoryData.filter(item => {
+      const loc = item.location.toUpperCase();
+      return (!query || loc.toLowerCase().includes(query) || item.product.toLowerCase().includes(query) || item.palletId.toLowerCase().includes(query)) &&
+             (!letter || loc.charAt(0) === letter) &&
+             (!level || (loc.length >= 4 && loc.charAt(3) === level)) &&
+             (!emptyOnly || item.isEmpty);
+    });
+
+    $('matchCount').textContent = filtered.length;
+    const tbody = document.querySelector('#inventoryTable tbody');
+    if (!filtered.length) {
+      tbody.innerHTML = `<tr><td colspan="4" class="empty-cell">${WSK.esc(WSK.t(inventoryData.length ? 'no_match' : 'load_first'))}</td></tr>`;
+      return;
+    }
+    const emptyLabel = WSK.esc(WSK.t('empty_loc'));
+    tbody.innerHTML = filtered.map(item => `
+      <tr>
+        <td><span class="loc-tag">${WSK.esc(item.location)}</span></td>
+        <td>${item.product ? `<strong>${WSK.esc(item.product)}</strong>` : `<span class="muted">— ${emptyLabel} —</span>`}</td>
+        <td><code>${WSK.esc(item.palletId)}</code></td>
+        <td class="num">${item.qty != null && !isNaN(item.qty) ? item.qty : 0}</td>
+      </tr>`).join('');
+  }
+
+  document.addEventListener('wsk:langchange', () => { if (inventoryData.length) filterAndRender(); });
+</script>
+</body>
+</html>

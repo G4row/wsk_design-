@@ -17,8 +17,9 @@ window.PAGE_I18N = {
     tools_av: 'TOOLS\nAVAILABLE', planned: 'PLANNED',
     a1: 'Operations', a1_d: 'Support everyday warehouse tasks from receiving to dispatch.', a1_f: 'DAILY WORKFLOWS →',
     t_pick: 'Picking', t_pick_d: 'Consolidate and sort picking lines',
-    t_form: 'WMS Operational Form', t_form_d: 'Checklist, time tracking and PDF export',
-    p_ipo: 'Inbound / Production / Outbound', p_ipo_d: 'Process modules planned',
+    t_form: 'Order Checklist', t_form_d: 'Order checks, time tracking and PDF export',
+    p_in: 'Inbound', p_in_d: 'Receiving module planned',
+    p_out: 'Outbound', p_out_d: 'Dispatch module planned',
     a2: 'Inventory', a2_d: 'Improve stock visibility, product data and location structure.', a2_f: 'STOCK & STRUCTURE →',
     t_abc: 'ABC Analysis', t_abc_d: 'Classify products and explore patterns',
     t_inv: 'Inventory Search', t_inv_d: 'Find stock and identify empty locations',
@@ -30,7 +31,6 @@ window.PAGE_I18N = {
     t_sw: 'Stopwatch', t_sw_d: 'Measure task times and export results',
     a4: 'Administration', a4_d: 'Keep recurring checks and supporting work organized.', a4_f: 'ORGANIZATION →',
     p_hol: 'Holidays', p_hol_d: 'Availability and holiday planning',
-    p_oc: 'Order Checklist', p_oc_d: 'Standardize order-related checks',
     note_b: 'A toolkit that grows with the process.', note: 'WSK is a working prototype. Planned modules are shown for direction and are not clickable yet.',
     foot: 'WAREHOUSE SWISS KNIFE · PRACTICAL THINKING · OPERATIONAL IMPROVEMENT'
   },
@@ -44,8 +44,9 @@ window.PAGE_I18N = {
     tools_av: 'TOOLS\nBESCHIKBAAR', planned: 'GEPLAND',
     a1: 'Operaties', a1_d: 'Ondersteun dagelijkse magazijntaken, van ontvangst tot verzending.', a1_f: 'DAGELIJKSE WORKFLOWS →',
     t_pick: 'Picking', t_pick_d: 'Pickregels samenvoegen en sorteren',
-    t_form: 'WMS operationeel formulier', t_form_d: 'Controlelijst, tijdregistratie en PDF-export',
-    p_ipo: 'Inbound / Productie / Outbound', p_ipo_d: 'Procesmodules gepland',
+    t_form: 'Order controlelijst', t_form_d: 'Ordercontroles, tijdregistratie en PDF-export',
+    p_in: 'Inbound', p_in_d: 'Ontvangstmodule gepland',
+    p_out: 'Outbound', p_out_d: 'Verzendmodule gepland',
     a2: 'Voorraad', a2_d: 'Verbeter voorraadinzicht, productdata en locatiestructuur.', a2_f: 'VOORRAAD & STRUCTUUR →',
     t_abc: 'ABC-analyse', t_abc_d: 'Producten indelen en patronen ontdekken',
     t_inv: 'Voorraad zoeken', t_inv_d: 'Voorraad vinden en lege locaties opsporen',
@@ -57,7 +58,6 @@ window.PAGE_I18N = {
     t_sw: 'Stopwatch', t_sw_d: 'Taaktijden meten en resultaten exporteren',
     a4: 'Administratie', a4_d: 'Houd terugkerende controles en ondersteunend werk georganiseerd.', a4_f: 'ORGANISATIE →',
     p_hol: 'Vakanties', p_hol_d: 'Beschikbaarheid en vakantieplanning',
-    p_oc: 'Order controlelijst', p_oc_d: 'Ordercontroles standaardiseren',
     note_b: 'Een toolkit die meegroeit met het proces.', note: 'WSK is een werkend prototype. Geplande modules worden getoond als richting en zijn nog niet klikbaar.',
     foot: 'WAREHOUSE SWISS KNIFE · PRAKTISCH DENKEN · OPERATIONELE VERBETERING'
   },
@@ -71,8 +71,9 @@ window.PAGE_I18N = {
     tools_av: 'DOSTUPNIH\nALATA', planned: 'PLANIRANO',
     a1: 'Operacije', a1_d: 'Podrška svakodnevnim skladišnim zadacima, od prijema do otpreme.', a1_f: 'DNEVNI TIJEKOVI →',
     t_pick: 'Picking', t_pick_d: 'Spajanje i sortiranje picking linija',
-    t_form: 'WMS operativni obrazac', t_form_d: 'Kontrolna lista, praćenje vremena i PDF izvoz',
-    p_ipo: 'Prijem / Proizvodnja / Otprema', p_ipo_d: 'Procesni moduli u planu',
+    t_form: 'Kontrolna lista narudžbe', t_form_d: 'Provjere narudžbe, praćenje vremena i PDF izvoz',
+    p_in: 'Inbound', p_in_d: 'Modul za prijem robe u pripremi',
+    p_out: 'Outbound', p_out_d: 'Modul za otpremu u pripremi',
     a2: 'Zalihe', a2_d: 'Bolja preglednost zaliha, podataka o proizvodima i strukture lokacija.', a2_f: 'ZALIHE I STRUKTURA →',
     t_abc: 'ABC analiza', t_abc_d: 'Razvrstavanje proizvoda i uočavanje obrazaca',
     t_inv: 'Pretraga inventara', t_inv_d: 'Pronalazak zaliha i praznih lokacija',
@@ -84,7 +85,6 @@ window.PAGE_I18N = {
     t_sw: 'Štoperica', t_sw_d: 'Mjerenje vremena zadataka i izvoz rezultata',
     a4: 'Administracija', a4_d: 'Organizirane redovite provjere i prateći poslovi.', a4_f: 'ORGANIZACIJA →',
     p_hol: 'Godišnji odmori', p_hol_d: 'Dostupnost i planiranje odmora',
-    p_oc: 'Kontrolna lista narudžbe', p_oc_d: 'Standardizirane provjere narudžbi',
     note_b: 'Alati koji rastu zajedno s procesom.', note: 'WSK je radni prototip. Planirani moduli prikazani su kao smjer razvoja i još se ne mogu otvoriti.',
     foot: 'WAREHOUSE SWISS KNIFE · PRAKTIČNO RAZMIŠLJANJE · OPERATIVNA POBOLJŠANJA'
   }
@@ -274,8 +274,8 @@ AVAILABLE</span></div>
       <div class="area-intro"><h3 data-i18n="a1">Operations</h3><p data-i18n="a1_d">Support everyday warehouse tasks from receiving to dispatch.</p></div>
       <div class="tools">
         <a class="tool" href="picking.html"><span class="i">⇄</span><span class="t"><strong data-i18n="t_pick">Picking</strong><span data-i18n="t_pick_d">Consolidate and sort picking lines</span></span><span>↗</span></a>
-        <a class="tool" href="form.html"><span class="i">☷</span><span class="t"><strong data-i18n="t_form">WMS Operational Form</strong><span data-i18n="t_form_d">Checklist, time tracking and PDF export</span></span><span>↗</span></a>
-        <div class="tool planned"><span class="i">＋</span><span class="t"><strong data-i18n="p_ipo">Inbound / Production / Outbound</strong><span data-i18n="p_ipo_d">Process modules planned</span></span><span class="tag" data-i18n="planned">PLANNED</span></div>
+        <div class="tool planned"><span class="i">↓</span><span class="t"><strong data-i18n="p_in">Inbound</strong><span data-i18n="p_in_d">Receiving module planned</span></span><span class="tag" data-i18n="planned">PLANNED</span></div>
+        <div class="tool planned"><span class="i">↑</span><span class="t"><strong data-i18n="p_out">Outbound</strong><span data-i18n="p_out_d">Dispatch module planned</span></span><span class="tag" data-i18n="planned">PLANNED</span></div>
       </div>
       <div class="area-foot" data-i18n="a1_f">DAILY WORKFLOWS →</div>
     </article>
@@ -307,8 +307,8 @@ AVAILABLE</span></div>
       <div class="area-bar"><span>[04] ADMINISTRATION</span><span>./admin</span></div>
       <div class="area-intro"><h3 data-i18n="a4">Administration</h3><p data-i18n="a4_d">Keep recurring checks and supporting work organized.</p></div>
       <div class="tools">
+        <a class="tool" href="form.html"><span class="i">☷</span><span class="t"><strong data-i18n="t_form">Order Checklist</strong><span data-i18n="t_form_d">Order checks, time tracking and PDF export</span></span><span>↗</span></a>
         <div class="tool planned"><span class="i">▦</span><span class="t"><strong data-i18n="p_hol">Holidays</strong><span data-i18n="p_hol_d">Availability and holiday planning</span></span><span class="tag" data-i18n="planned">PLANNED</span></div>
-        <div class="tool planned"><span class="i">☑</span><span class="t"><strong data-i18n="p_oc">Order Checklist</strong><span data-i18n="p_oc_d">Standardize order-related checks</span></span><span class="tag" data-i18n="planned">PLANNED</span></div>
       </div>
       <div class="area-foot" data-i18n="a4_f">ORGANIZATION →</div>
     </article>

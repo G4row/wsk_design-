@@ -33,7 +33,7 @@
       brand_sub: 'Warehouse operations toolkit',
       lang_label: 'Language',
       nav_label: 'Tools',
-      nav_menu: 'Menu', nav_picking: 'Picking', nav_form: 'Form', nav_abc: 'ABC',
+      nav_menu: 'Menu', nav_picking: 'Picking', nav_form: 'Checklist', nav_abc: 'ABC',
       nav_inventory: 'Inventory', nav_locations: 'Locations', nav_qr: 'QR / Barcode',
       nav_mod: 'MOD', nav_timer: 'Timer',
       remove: 'Remove', close: 'Close', no_rows: 'No entries yet.',
@@ -46,7 +46,7 @@
       brand_sub: 'Toolkit voor magazijnoperaties',
       lang_label: 'Taal',
       nav_label: 'Tools',
-      nav_menu: 'Menu', nav_picking: 'Picking', nav_form: 'Formulier', nav_abc: 'ABC',
+      nav_menu: 'Menu', nav_picking: 'Picking', nav_form: 'Controlelijst', nav_abc: 'ABC',
       nav_inventory: 'Voorraad', nav_locations: 'Locaties', nav_qr: 'QR / Barcode',
       nav_mod: 'MOD', nav_timer: 'Timer',
       remove: 'Verwijderen', close: 'Sluiten', no_rows: 'Nog geen invoer.',
@@ -59,7 +59,7 @@
       brand_sub: 'Alati za skladišne operacije',
       lang_label: 'Jezik',
       nav_label: 'Alati',
-      nav_menu: 'Izbornik', nav_picking: 'Picking', nav_form: 'Obrazac', nav_abc: 'ABC',
+      nav_menu: 'Izbornik', nav_picking: 'Picking', nav_form: 'Kontrolna lista', nav_abc: 'ABC',
       nav_inventory: 'Inventar', nav_locations: 'Lokacije', nav_qr: 'QR / Barkod',
       nav_mod: 'MOD', nav_timer: 'Štoperica',
       remove: 'Ukloni', close: 'Zatvori', no_rows: 'Još nema unosa.',
@@ -82,17 +82,17 @@
     timer: 'M15 1H9v2h6V1zm-2 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0012 4c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z'
   };
 
-  // Order follows the home page: Operations, Inventory, Tools
+  // Order follows the home page: Operations, Inventory, Tools, Administration
   var NAV = [
     { page: 'index', href: 'index.html', key: 'nav_menu', icon: 'menu' },
     { page: 'picking', href: 'picking.html', key: 'nav_picking', icon: 'picking' },
-    { page: 'form', href: 'form.html', key: 'nav_form', icon: 'form' },
     { page: 'abc', href: 'abc.html', key: 'nav_abc', icon: 'abc' },
     { page: 'inventory', href: 'inventory.html', key: 'nav_inventory', icon: 'inventory' },
     { page: 'locations', href: 'locations.html', key: 'nav_locations', icon: 'locations' },
     { page: 'qr', href: 'qr.html', key: 'nav_qr', icon: 'qr' },
     { page: 'mod', href: 'mod.html', key: 'nav_mod', icon: 'mod' },
-    { page: 'stopwatch', href: 'stopwatch.html', key: 'nav_timer', icon: 'timer' }
+    { page: 'stopwatch', href: 'stopwatch.html', key: 'nav_timer', icon: 'timer' },
+    { page: 'form', href: 'form.html', key: 'nav_form', icon: 'form' }
   ];
 
   function readStored() {

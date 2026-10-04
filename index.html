@@ -32,7 +32,8 @@ window.PAGE_I18N = {
     a4: 'Administration', a4_d: 'Keep recurring checks and supporting work organized.', a4_f: 'ORGANIZATION →',
     p_hol: 'Holidays', p_hol_d: 'Availability and holiday planning',
     note_b: 'A toolkit that grows with the process.', note: 'WSK is a working prototype. Planned modules are shown for direction and are not clickable yet.',
-    foot: 'WAREHOUSE SWISS KNIFE · PRACTICAL THINKING · OPERATIONAL IMPROVEMENT'
+    foot: 'WAREHOUSE SWISS KNIFE · PRACTICAL THINKING · OPERATIONAL IMPROVEMENT',
+    cv_title: 'G4ROW — open CV (new tab)'
   },
   nl: {
     kicker: '> PRAKTISCHE TOOLS. BETERE PROCESSEN.',
@@ -59,7 +60,8 @@ window.PAGE_I18N = {
     a4: 'Administratie', a4_d: 'Houd terugkerende controles en ondersteunend werk georganiseerd.', a4_f: 'ORGANISATIE →',
     p_hol: 'Vakanties', p_hol_d: 'Beschikbaarheid en vakantieplanning',
     note_b: 'Een toolkit die meegroeit met het proces.', note: 'WSK is een werkend prototype. Geplande modules worden getoond als richting en zijn nog niet klikbaar.',
-    foot: 'WAREHOUSE SWISS KNIFE · PRAKTISCH DENKEN · OPERATIONELE VERBETERING'
+    foot: 'WAREHOUSE SWISS KNIFE · PRAKTISCH DENKEN · OPERATIONELE VERBETERING',
+    cv_title: 'G4ROW — cv openen (nieuw tabblad)'
   },
   hr: {
     kicker: '> PRAKTIČNI ALATI. BOLJI PROCESI.',
@@ -86,7 +88,8 @@ window.PAGE_I18N = {
     a4: 'Administracija', a4_d: 'Organizirane redovite provjere i prateći poslovi.', a4_f: 'ORGANIZACIJA →',
     p_hol: 'Godišnji odmori', p_hol_d: 'Dostupnost i planiranje odmora',
     note_b: 'Alati koji rastu zajedno s procesom.', note: 'WSK je radni prototip. Planirani moduli prikazani su kao smjer razvoja i još se ne mogu otvoriti.',
-    foot: 'WAREHOUSE SWISS KNIFE · PRAKTIČNO RAZMIŠLJANJE · OPERATIVNA POBOLJŠANJA'
+    foot: 'WAREHOUSE SWISS KNIFE · PRAKTIČNO RAZMIŠLJANJE · OPERATIVNA POBOLJŠANJA',
+    cv_title: 'G4ROW — otvori životopis (nova kartica)'
   }
 };
 </script>
@@ -128,7 +131,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
 .brand-text strong{font-size:16px;letter-spacing:.04em;color:var(--white)}
 .brand-text span{font-size:11px;letter-spacing:.22em;color:var(--text-muted)}
 .header-right{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.badge{font-size:12px;letter-spacing:.16em;color:var(--accent);border:1px dashed var(--line);padding:6px 10px}
+.badge{display:inline-flex;align-items:center;min-height:40px;font-size:12px;letter-spacing:.16em;color:var(--accent);border:1px dashed var(--line);padding:6px 10px}
+a.badge:hover{border-style:solid;border-color:var(--accent);color:var(--white);background:#062b11}
+a.badge:focus-visible{outline:2px solid var(--text);outline-offset:2px}
 .lang{display:flex;border:1px solid var(--line)}
 .lang .lang-btn{min-width:44px;min-height:40px;background:transparent;color:#8fe8a8;border:0;font-family:inherit;font-size:13px;cursor:pointer}
 .lang .lang-btn + .lang-btn{border-left:1px solid var(--line)}
@@ -222,7 +227,8 @@ footer b{color:var(--accent);font-weight:400}
       </span>
     </a>
     <div class="header-right">
-      <span class="badge">[ PROTOTYPE ]</span>
+      <!-- CV link: the PDF must be in the same folder as index.html -->
+      <a class="badge" href="CV_Marko_Vidovic-Turina.pdf" target="_blank" rel="noopener" data-i18n-title="cv_title" data-i18n-aria="cv_title">[ G4ROW ]</a>
       <div class="lang" data-lang-switcher></div>
     </div>
   </div>
